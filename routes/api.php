@@ -13,5 +13,5 @@ Route::post('inventory', [InventoryController::class, 'storeInventory']);
 
 Route::delete('inventory/{id}', [InventoryController::class, 'destroyInventory']);
 
-Route::update('inventory/{id}', [InventoryController::class, 'updateInventory']);
+// Route::update('inventory/{id}', [InventoryController::class, 'updateInventory']); gagal
 
