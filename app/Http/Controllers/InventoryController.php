@@ -113,21 +113,29 @@ class InventoryController extends Controller
     }
     
 
-    public function updateInventory($id)
-    {
-        // cari data di tabel fakultas berdasarkan "id" fakultas
-        $inventory = inventory::find($id);
+   /* public function updateInventory(Request $request){
+       
+        $input = $request->validate([
+            "namaBarang"      => "required|unique:inventories",
+            "jumlah"     => "required",
+            "kategori" => "required",
+            "harga" => "required",
+            "statusBarang" => "required",
+            "stokBarang" => "required"
 
-        $hasil = $inventory->update();
+        ]);
+
+        // simpan
+        $hasil = inventory::update($input);
         if($hasil){ // jika data berhasil disimpan
             $response['success'] = true;
-            $response['message'] = "inventory berhasil dihapus";
-            return response()->json($response, 200);
+            $response['message'] = $request->nama." berhasil disimpan";
+            return response()->json($response, 201); // 201 Created
         } else {
             $response['success'] = false;
-            $response['message'] = "inventory gagal dihapus";
-            return response()->json($response, 400);
+            $response['message'] = $request->nama." gagal disimpan";
+            return response()->json($response, 400); // 400 Bad Request
         }
-    }
+    }*/
 
 }
