@@ -62,4 +62,72 @@ class InventoryController extends Controller
     {
         //
     }
+    public function getInventory(){
+        $response['data'] = inventory::all();
+        $response['message'] = 'List data inventory';
+        $response['success'] = true;
+
+        return response()->json($response, 200);
+    }
+
+    public function storeInventory(Request $request){
+       
+        $input = $request->validate([
+            "namaBarang"      => "required|unique:inventories",
+            "jumlah"     => "required",
+            "kategori" => "required",
+            "harga" => "required",
+            "statusBarang" => "required",
+            "stokBarang" => "required"
+
+        ]);
+
+        // simpan
+        $hasil = inventory::create($input);
+        if($hasil){ // jika data berhasil disimpan
+            $response['success'] = true;
+            $response['message'] = $request->nama." berhasil disimpan";
+            return response()->json($response, 201); // 201 Created
+        } else {
+            $response['success'] = false;
+            $response['message'] = $request->nama." gagal disimpan";
+            return response()->json($response, 400); // 400 Bad Request
+        }
+    }
+
+    public function destroyInventory($id)
+    {
+        // cari data di tabel fakultas berdasarkan "id" fakultas
+        $inventory = inventory::find($id);
+
+        $hasil = $inventory->delete();
+        if($hasil){ // jika data berhasil disimpan
+            $response['success'] = true;
+            $response['message'] = "inventory berhasil dihapus";
+            return response()->json($response, 200);
+        } else {
+            $response['success'] = false;
+            $response['message'] = "inventory gagal dihapus";
+            return response()->json($response, 400);
+        }
+    }
+    
+
+    public function updateInventory($id)
+    {
+        // cari data di tabel fakultas berdasarkan "id" fakultas
+        $inventory = inventory::find($id);
+
+        $hasil = $inventory->update();
+        if($hasil){ // jika data berhasil disimpan
+            $response['success'] = true;
+            $response['message'] = "inventory berhasil dihapus";
+            return response()->json($response, 200);
+        } else {
+            $response['success'] = false;
+            $response['message'] = "inventory gagal dihapus";
+            return response()->json($response, 400);
+        }
+    }
+
 }
